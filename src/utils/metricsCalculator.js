@@ -92,7 +92,6 @@ export function calculateMetrics(developerId, month, data) {
  */
 export function calculateTeamMetrics(managerId, month, data) {
   const teamDevs = data.developers.filter((d) => d.manager_id === managerId);
-  const teamDevIds = teamDevs.map((d) => d.developer_id);
 
   const teamResults = teamDevs.map((dev) => ({
     developer: dev,

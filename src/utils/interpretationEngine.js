@@ -8,7 +8,7 @@
  *   - "Needs review"    : lead time ≥ 6 or cycle time ≥ 6 (no bug this month)
  */
 export function interpretMetrics(metrics) {
-  const { leadTime, cycleTime, bugRate, deploymentFrequency, prThroughput } = metrics;
+  const { leadTime, cycleTime, bugRate, deploymentFrequency } = metrics;
 
   let status = "";
   let signal = "";
