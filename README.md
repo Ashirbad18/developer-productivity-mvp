@@ -2,7 +2,7 @@
 
 A React.js web app that shows developer productivity metrics **and explains what they mean**, with actionable next steps.
 
-**Live at:** `http://localhost:3000` after running locally.
+**Live at:** [https://developer-productivity-mvp-kappa.vercel.app](https://developer-productivity-mvp-kappa.vercel.app)
 
 ---
 
