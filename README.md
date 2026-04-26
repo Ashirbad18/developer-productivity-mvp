@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# DevPulse — Developer Productivity Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React.js web app that shows developer productivity metrics **and explains what they mean**, with actionable next steps.
 
-## Available Scripts
+**Live at:** `http://localhost:3000` after running locally.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## The Problem
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Metrics alone (e.g. "8 PRs shipped, 6-day lead time") don't help developers improve. DevPulse adds **interpretation** and **next steps** to every metric set.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How It Works
 
-### `npm test`
+1. Select a developer from the dropdown
+2. View their 5 productivity metrics for April 2026
+3. Read the interpretation: Healthy / Slow / At Risk / Watch
+4. Get 1–2 specific next steps to improve
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## The 5 Metrics
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Metric | Definition | Target |
+|---|---|---|
+| **Lead Time** | Days from PR opened → deployed to prod | < 5 days |
+| **Cycle Time** | Days from issue started → marked Done | < 5 days |
+| **Bug Rate** | Escaped bugs / completed issues (%) | < 10% |
+| **Deployment Frequency** | Prod releases per month | 2+ |
+| **PR Throughput** | Merged pull requests per month | 4+ |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Tech Stack
 
-### `npm run eject`
+- **React.js** — component-based UI
+- **JavaScript** — metric calculation and interpretation logic
+- **CSS** — dark-mode glassmorphism design
+- **JSON** — data layer (converted from Excel)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to Run Locally
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+git clone https://github.com/YOUR_USERNAME/developer-productivity-mvp.git
+cd developer-productivity-mvp
+npm install
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Then open http://localhost:3000
 
-## Learn More
+### (Optional) Use your own Excel data
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you have `intern_assignment_support_pack_dev_only_v3.xlsx`:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+pip install pandas openpyxl
+python convert_excel.py
+```
 
-### Code Splitting
+This overwrites `src/data/data.json` with live data.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+developer-productivity-mvp/
+├── src/
+│   ├── components/
+│   │   ├── DeveloperPicker.jsx     # Dropdown to select a developer
+│   │   ├── MetricsDisplay.jsx      # 5 metric cards
+│   │   └── InterpretationPanel.jsx # Status + pattern + next steps
+│   ├── utils/
+│   │   ├── metricsCalculator.js    # Computes all 5 metrics from raw data
+│   │   └── interpretationEngine.js # Decision rules: healthy / at-risk / etc.
+│   ├── data/
+│   │   └── data.json               # Developer + metrics data
+│   ├── App.js                      # Main app layout
+│   └── App.css                     # Dark-mode premium styling
+├── convert_excel.py                # Python: Excel → JSON converter
+└── README.md
+```
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Design Decisions
 
-### Advanced Configuration
+- **Why JSON?** Lightweight, no backend needed. Converts from Excel via Python script.
+- **Why these thresholds?** Based on DORA metrics research (lead time >6d = slow, bug rate >12% = watch).
+- **Why React?** Component reuse (MetricsDisplay, InterpretationPanel), state management for dev selection.
+- **Why dark mode?** Premium feel, easier on eyes for developer-focused tools.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*Built for the Developer Productivity Intern Assignment.*
